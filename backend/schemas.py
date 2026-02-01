@@ -33,5 +33,22 @@ class LoginRequest(BaseModel):
     password: str
 
 
+class WorksheetGenerateRequest(BaseModel):
+    level: str = Field(pattern="^(A1|A2|B1|B2)$")
+    topic: str
+    age_group: str = Field(pattern="^(8-10|11-13|14-16|adult)$")
+    duration: int = Field(ge=10, le=45)
+    activity_types: list[str]
+    theme_words: list[str] | None = None
+
+
+class WorksheetGenerateResponse(BaseModel):
+    title: str
+    estimated_duration: str
+    content: list[str]
+    solutions: list[str]
+    remaining_credits: int
+
+
 class TokenData(BaseModel):
     user_id: Optional[int] = None
