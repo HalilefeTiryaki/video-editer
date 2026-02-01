@@ -17,6 +17,10 @@ uvicorn backend.main:app --reload
 
 Open Swagger UI at `http://127.0.0.1:8000/docs`.
 
+## UI
+- FastAPI serves the UI at `http://127.0.0.1:8000/` (login/register) and `http://127.0.0.1:8000/dashboard.html` (worksheet).
+- Alternatively, open the `frontend/` folder with a static server like Live Server at `http://127.0.0.1:5500`.
+
 ## API Flow
 1. `POST /auth/register`
 2. `POST /auth/login`

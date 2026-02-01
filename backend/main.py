@@ -1,7 +1,10 @@
 import json
 import os
+from pathlib import Path
 
 from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
 
 from . import auth, models, schemas, worksheet
@@ -11,6 +14,41 @@ from .deps import get_current_user, get_db
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Video Editor Backend")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:5500",
+        "http://127.0.0.1:5500",
+        "http://localhost",
+        "http://127.0.0.1",
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+
+
+@app.get("/")
+def serve_index():
+    return FileResponse(FRONTEND_DIR / "index.html")
+
+
+@app.get("/dashboard.html")
+def serve_dashboard():
+    return FileResponse(FRONTEND_DIR / "dashboard.html")
+
+
+@app.get("/app.js")
+def serve_app_js():
+    return FileResponse(FRONTEND_DIR / "app.js")
+
+
+@app.get("/styles.css")
+def serve_styles():
+    return FileResponse(FRONTEND_DIR / "styles.css")
 
 
 @app.post("/auth/register", response_model=schemas.UserPublic, status_code=status.HTTP_201_CREATED)
