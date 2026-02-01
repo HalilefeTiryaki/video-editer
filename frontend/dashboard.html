@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Video Editor • Dashboard</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="container" data-page="dashboard">
+    <header class="page-header">
+      <div>
+        <h1>Worksheet Generator</h1>
+        <p class="muted">Create DaZ worksheets and manage credits.</p>
+      </div>
+      <button id="logout" class="secondary">Logout</button>
+    </header>
+
+    <section class="grid">
+      <div class="card">
+        <h2>Your account</h2>
+        <div class="info-row">
+          <span class="label">Email</span>
+          <span id="user-email">-</span>
+        </div>
+        <div class="info-row">
+          <span class="label">Remaining credits</span>
+          <span id="user-credits">-</span>
+        </div>
+        <div id="dashboard-message" class="message" role="status" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <h2>Generate worksheet</h2>
+        <form id="worksheet-form" class="form">
+          <div class="form-row">
+            <label>
+              Level
+              <select name="level" required>
+                <option value="A1">A1</option>
+                <option value="A2">A2</option>
+                <option value="B1">B1</option>
+                <option value="B2">B2</option>
+              </select>
+            </label>
+            <label>
+              Duration
+              <select name="duration" required>
+                <option value="10">10 min</option>
+                <option value="20">20 min</option>
+                <option value="30">30 min</option>
+                <option value="45">45 min</option>
+              </select>
+            </label>
+          </div>
+
+          <label>
+            Topic
+            <input type="text" name="topic" required placeholder="Artikel, Schule, Alltag..." />
+          </label>
+
+          <label>
+            Age group
+            <select name="age_group" required>
+              <option value="8-10">8-10</option>
+              <option value="11-13">11-13</option>
+              <option value="14-16">14-16</option>
+              <option value="adult">Adult</option>
+            </select>
+          </label>
+
+          <fieldset class="checkbox-group">
+            <legend>Activity types</legend>
+            <label><input type="checkbox" name="activity_types" value="reading" checked /> Reading</label>
+            <label><input type="checkbox" name="activity_types" value="grammar" /> Grammar</label>
+            <label><input type="checkbox" name="activity_types" value="vocabulary" /> Vocabulary</label>
+            <label><input type="checkbox" name="activity_types" value="writing" /> Writing</label>
+            <label><input type="checkbox" name="activity_types" value="speaking" /> Speaking</label>
+          </fieldset>
+
+          <label>
+            Theme words (comma-separated)
+            <input type="text" name="theme_words" placeholder="Haus, Schule, Lehrer" />
+          </label>
+
+          <button type="submit" class="primary">Generate</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="card" id="result" hidden>
+      <div class="result-header">
+        <div>
+          <h2 id="result-title">Worksheet</h2>
+          <p class="muted" id="result-duration">-</p>
+        </div>
+      </div>
+
+      <div>
+        <h3>Content</h3>
+        <ol id="result-content"></ol>
+      </div>
+
+      <details class="solutions">
+        <summary>Show solutions</summary>
+        <ol id="result-solutions"></ol>
+      </details>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
